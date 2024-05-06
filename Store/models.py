@@ -11,6 +11,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     inventory = models.PositiveSmallIntegerField()
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    promotion = models.ManyToManyField("Promotion")
 
 
 #Model customer
@@ -63,3 +64,9 @@ class CartItems(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
+    
+#Model Promotions
+class Promotion(models.Model):
+    description = models.CharField(max_length=255)
+    discount = models.FloatField()
+    #product_set
