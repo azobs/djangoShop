@@ -4,14 +4,21 @@ from django.db import models # type: ignore
 #Model Category
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    class Meta:
+        ordering = ["name"]
+        indexes = [
+            models.Index(fields=["name"]),
+        ]
+        
 #Model product
 class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     inventory = models.PositiveSmallIntegerField()
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     promotion = models.ManyToManyField("Promotion")
+    transport_cost = models.DecimalField(decimal_places=2, max_digits=10, default=0)
 
 
 #Model customer
